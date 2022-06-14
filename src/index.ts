@@ -6,7 +6,9 @@ interface RetryOptions {
 type Bail = (err: unknown) => void;
 
 const retry = async <R,>(fn: <T,>(bail: Bail) => Promise<R>, { retries = 10, onRetry }: RetryOptions = {}): Promise<R> => {
+  let bailed: boolean;
   const bail = (err: unknown) => {
+    bailed = true;
     throw err;
   }
   const tempFunc = async (retryCount: number): Promise<R> => {
@@ -17,6 +19,7 @@ const retry = async <R,>(fn: <T,>(bail: Bail) => Promise<R>, { retries = 10, onR
       const result = await fn(bail);
       return result;
     } catch (err) {
+      if (bailed) throw err;
       if (onRetry) {
         return onRetry(err);
       }
