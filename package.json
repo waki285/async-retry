@@ -1,6 +1,6 @@
 {
   "name": "@suzuneu/async-retry",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "pakuri async-rery",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
