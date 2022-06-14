@@ -29,6 +29,4 @@ const retry = async <R,>(fn: <T,>(bail: Bail) => Promise<R>, { retries = 10, onR
   return await tempFunc(0);
 };
 
-retry(async (bail) => 1, { retries: 1 });
-
 export default retry;
